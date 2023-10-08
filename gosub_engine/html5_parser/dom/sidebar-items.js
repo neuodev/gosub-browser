@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ShadowRootMode","SlotAssignmentMode"],"struct":["Element","HtmlElement","ShadowRoot"]};

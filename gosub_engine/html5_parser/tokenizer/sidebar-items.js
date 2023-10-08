@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["CHAR_CR","CHAR_FF","CHAR_LF","CHAR_NUL","CHAR_REPLACEMENT","CHAR_SPACE","CHAR_TAB"],"mod":["state","token"],"struct":["Options","Tokenizer"]};

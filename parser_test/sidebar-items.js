@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":["ErrorResult"],"fn":["main","match_document_tree","match_error","match_node","read_tests","run_tree_test"],"struct":["Error","Test","TestResults"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["comment_data","document_data","element_data","text_data"]};
