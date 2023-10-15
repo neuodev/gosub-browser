@@ -40,10 +40,10 @@ impl Tokenizer {
             let result = re.captures(raw);
 
             println!(
-                "[get_next_token] value={:?}, token_type={:?} for raw={}",
+                "[get_next_token] value={:?}, token_type={:?} for raw={:?}",
                 result,
                 token_type,
-                &raw.trim(),
+                raw.trim().lines().collect::<Vec<&str>>().first(),
             );
 
             if let Some(cap) = result {

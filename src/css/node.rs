@@ -42,13 +42,38 @@ pub enum AttributeSelectorValue {
     None,
 }
 
+#[derive(PartialEq)]
+pub enum AttributeMatcher {
+    IncludeMatch,
+    DashMatch,
+    PrefixMatch,
+    SuffixMatch,
+    SubstringMatch,
+    EqualityMatch,
+}
+
+impl Debug for AttributeMatcher {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
+        let matcher = match self {
+            AttributeMatcher::IncludeMatch => "~=",
+            AttributeMatcher::DashMatch => "|=",
+            AttributeMatcher::PrefixMatch => "^=",
+            AttributeMatcher::SuffixMatch => "$=",
+            AttributeMatcher::SubstringMatch => "*=",
+            AttributeMatcher::EqualityMatch => "=",
+        };
+
+        write!(f, "{}", matcher)
+    }
+}
+
 /// [Attribute Selector](https://drafts.csswg.org/selectors/#attribute-selectors)
 #[derive(Debug, PartialEq)]
 pub struct AttributeSelector {
-    name: Identifier,
-    matcher: Option<String>,
-    value: AttributeSelectorValue,
-    flags: Option<String>,
+    pub name: Identifier,
+    pub matcher: Option<AttributeMatcher>,
+    pub value: Option<CssString>,
+    pub flag: Option<Identifier>,
 }
 
 /// [Id Selector](https://drafts.csswg.org/selectors/#id-selectors)
@@ -85,6 +110,12 @@ impl ClassSelector {
 #[derive(Debug, PartialEq)]
 pub struct TypeSelector {
     name: String,
+}
+
+impl TypeSelector {
+    pub fn new(name: String) -> TypeSelector {
+        TypeSelector { name }
+    }
 }
 
 /// [Nesting Selector](https://drafts.csswg.org/css-nesting/#nest-selector)
@@ -127,6 +158,10 @@ impl Debug for Identifier {
 impl Identifier {
     pub fn new(name: String) -> Identifier {
         Identifier { name }
+    }
+
+    pub fn from_str(name: &str) -> Identifier {
+        Identifier::new(name.to_string())
     }
 }
 
@@ -277,9 +312,19 @@ pub struct CssNumber {
     value: String,
 }
 
-#[derive(Debug, PartialEq)]
+#[derive(Default, Debug, PartialEq)]
 pub struct CssString {
     value: String,
+}
+
+impl CssString {
+    pub fn new(value: String) -> CssString {
+        CssString { value }
+    }
+
+    pub fn from_str(value: &str) -> CssString {
+        CssString::new(value.to_string())
+    }
 }
 
 // todo: should be "enum"
